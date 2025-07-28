@@ -263,8 +263,8 @@
 
         .horizontal-ribbon-container {
             position: absolute;
-            top: 250px; /* Position ribbon in the middle of the expanded space */
-            left: -15%; /* Allow ribbon to extend off-screen */
+            top: 250px;
+            left: -15%;
             right: -15%;
             height: 200px;
             opacity: 0;
@@ -290,7 +290,7 @@
             animation: stretch-ribbon 1s ease-out 0.8s forwards;
         }
         @keyframes stretch-ribbon {
-            to { width: 100%; } /* Fill the wider container */
+            to { width: 100%; }
         }
 
         .photo-strip {
@@ -300,8 +300,8 @@
             width: 100%;
             height: 100%;
             display: flex;
-            justify-content: center; /* Center the photos */
-            gap: 3rem; /* Increased space between photos */
+            justify-content: center;
+            gap: 3rem;
             align-items: center;
             z-index: 15;
         }
@@ -322,7 +322,7 @@
         }
         .compliment-card {
             position: absolute;
-            bottom: -85px; /* Increased space */
+            bottom: -85px;
             left: 50%;
             transform: translateX(-50%);
             background: white;
@@ -365,7 +365,7 @@
             width: 100px;
             opacity: 0;
             transform: translateY(-50%) scale(0);
-            z-index: 20; /* Ensure balloons are on top */
+            z-index: 20;
         }
         .gift-box-wrapper.opened .balloons {
             animation: pop-balloon 0.8s ease-out 1.8s forwards, bob-gently 5s infinite ease-in-out 2.6s;
@@ -415,60 +415,65 @@
                 font-size: 1rem;
             }
 
-            /* 2. New Robust Gift Box Fix: Use Flexbox to stack items */
+            /* 2. Definitive Gift Box Fix: Use Flexbox to stack items */
             .gift-box-wrapper.opened {
                 height: auto; /* Let content determine the height */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 1rem; /* Space between the stacked items */
+                gap: 1.5rem; /* Space between the stacked items */
                 padding: 1rem 0;
-                transition: none; /* Disable height transition for this robust layout */
+                transition: none; /* Disable height transition for this stable layout */
             }
 
             /* Override absolute positioning for the children so they stack */
             .gift-box-wrapper.opened .final-wish-container,
             .gift-box-wrapper.opened .horizontal-ribbon-container,
             .gift-box-wrapper.opened .gift-box-container {
-                position: relative; /* Change from absolute */
+                position: relative;
                 top: auto;
                 left: auto;
                 right: auto;
                 transform: none;
             }
 
-            .gift-box-wrapper.opened .horizontal-ribbon-container {
-                height: auto;
-                width: 100%;
-                left: 0;
-                right: 0;
-                order: 2; /* Set display order: message -> photos -> box */
-            }
+            /* Set display order: message -> photos -> box */
+            .gift-box-wrapper.opened .final-wish-container { order: 1; }
+            .gift-box-wrapper.opened .horizontal-ribbon-container { order: 2; height: auto; width: 100%; }
+            .gift-box-wrapper.opened .gift-box-container { order: 3; margin-top: 2rem; }
             
-            .gift-box-wrapper.opened .final-wish-container {
-                order: 1;
-            }
-            
-            .gift-box-wrapper.opened .gift-box-container {
-                order: 3;
-                margin-top: 2rem;
-            }
-
-            /* The photo strip itself */
+            /* The photo grid container */
             .photo-strip {
-                position: relative; /* Was absolute, now relative */
+                position: relative;
                 height: auto;
                 flex-wrap: wrap;
-                align-items: center;
                 justify-content: center;
-                gap: 2.5rem 1.5rem;
+                gap: 1rem;
+            }
+
+            /* Critical Fix: Make each photo item a column for the image and its card */
+            .photo-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                padding-bottom: 3rem; /* Add padding to the bottom of each photo item for the card */
             }
             .photo-item img {
-                width: 125px;
-                height: 125px;
+                width: 130px;
+                height: 130px;
             }
+
+            /* The compliment card is no longer absolutely positioned */
             .compliment-card {
-                bottom: -75px;
+                position: static; /* This is the key change */
+                transform: none;
+                margin-top: 0.25rem;
+            }
+            
+            /* Hide the decorative ribbon on mobile to reduce clutter */
+            .gift-box-wrapper.opened .horizontal-ribbon {
+                display: none;
             }
 
             /* 3. Footer Fix: Add space to prevent overlap with music button */
