@@ -313,8 +313,8 @@
             animation: pop-photo 0.8s ease-out forwards;
         }
         .photo-item img {
-            width: 150px;  /* Increased from 120px */
-            height: 150px; /* Increased from 120px */
+            width: 150px;
+            height: 150px;
             border: 5px solid white;
             border-radius: 0.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -409,34 +409,66 @@
         @media (max-width: 640px) {
             /* 1. Gallery Fix: Increase vertical gap between items */
             #gallery .grid {
-                row-gap: 18rem; /* Creates much more space for the note cards to reveal without overlapping */
+                row-gap: 18rem;
             }
             .note-card {
-                font-size: 1rem; /* Keeps note card font slightly smaller */
+                font-size: 1rem;
             }
 
-            /* 2. Gift Box Fix: Re-align photos and adjust container */
+            /* 2. New Robust Gift Box Fix: Use Flexbox to stack items */
             .gift-box-wrapper.opened {
-                height: 960px; /* Final height to fit all content */
+                height: auto; /* Let content determine the height */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem; /* Space between the stacked items */
+                padding: 1rem 0;
+                transition: none; /* Disable height transition for this robust layout */
             }
+
+            /* Override absolute positioning for the children so they stack */
+            .gift-box-wrapper.opened .final-wish-container,
+            .gift-box-wrapper.opened .horizontal-ribbon-container,
             .gift-box-wrapper.opened .gift-box-container {
-                top: 810px; /* Final position for the gift box at the bottom */
+                position: relative; /* Change from absolute */
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
             }
-            .horizontal-ribbon-container {
-                top: 350px; /* Pushes the photos down to not overlap the message */
+
+            .gift-box-wrapper.opened .horizontal-ribbon-container {
+                height: auto;
+                width: 100%;
+                left: 0;
+                right: 0;
+                order: 2; /* Set display order: message -> photos -> box */
             }
+            
+            .gift-box-wrapper.opened .final-wish-container {
+                order: 1;
+            }
+            
+            .gift-box-wrapper.opened .gift-box-container {
+                order: 3;
+                margin-top: 2rem;
+            }
+
+            /* The photo strip itself */
             .photo-strip {
+                position: relative; /* Was absolute, now relative */
+                height: auto;
                 flex-wrap: wrap;
-                align-items: flex-start; /* Aligns photos to the top of their container */
-                padding-top: 1rem;       /* Adds a little space above the first row of photos */
-                gap: 2rem 1.5rem;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem 1.5rem;
             }
             .photo-item img {
-                width: 125px; /* Slightly smaller photos for a better fit */
+                width: 125px;
                 height: 125px;
             }
             .compliment-card {
-                bottom: -70px; /* Adjust card position for the new image size */
+                bottom: -75px;
             }
 
             /* 3. Footer Fix: Add space to prevent overlap with music button */
