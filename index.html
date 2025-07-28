@@ -405,37 +405,44 @@
             background-color: #f472b6; /* pink-400 */
         }
 
-        /* --- UPDATED RESPONSIVE STYLES --- */
+        /* --- FINAL RESPONSIVE STYLES --- */
         @media (max-width: 640px) {
-            /* 1. Makes the surprise photos wrap and resizes them */
-            .photo-strip {
-                flex-wrap: wrap; /* Allows photos to wrap to the next line */
-                gap: 2rem 1.5rem;  /* Adjusts vertical and horizontal gaps */
+            /* 1. Gallery Fix: Increase vertical gap between items */
+            #gallery .grid {
+                row-gap: 18rem; /* Creates much more space for the note cards to reveal without overlapping */
             }
-            .photo-item img {
-                width: 130px;  /* Slightly smaller photos for mobile */
-                height: 130px;
-            }
-            .compliment-card {
-                 bottom: -75px; /* Adjust card position for new image size */
+            .note-card {
+                font-size: 1rem; /* Keeps note card font slightly smaller */
             }
 
-            /* 2. Makes the gift box container taller to fit wrapped content */
+            /* 2. Gift Box Fix: Re-align photos and adjust container */
             .gift-box-wrapper.opened {
-                height: 900px; /* Increased height to prevent overlap */
+                height: 850px; /* Tweak height to perfectly fit all content */
             }
             .gift-box-wrapper.opened .gift-box-container {
-                top: 750px; /* Moves the box to the new bottom */
+                top: 700px; /* Move the gift box to the new bottom */
+            }
+            .horizontal-ribbon-container {
+                top: 240px; /* Push the photos down to prevent overlap with the 'hug' message */
+            }
+            .photo-strip {
+                flex-wrap: wrap;
+                align-items: flex-start; /* Aligns photos to the top of their container */
+                padding-top: 1rem;       /* Adds a little space above the first row of photos */
+                gap: 2rem 1.5rem;
+            }
+            .photo-item img {
+                width: 125px; /* Slightly smaller photos for a better fit */
+                height: 125px;
+            }
+            .compliment-card {
+                bottom: -70px; /* Adjust card position for the new image size */
             }
 
-            /* 3. Refines the gallery padding for mobile */
-             #gallery {
-                 /* Increases padding to ensure note cards have enough space */
-                padding-bottom: 26rem; 
-             }
-             .note-card {
-                font-size: 1rem; /* Makes the note card font slightly smaller */
-             }
+            /* 3. Footer Fix: Add space to prevent overlap with music button */
+            footer {
+                padding-bottom: 6rem;
+            }
         }
     </style>
 </head>
